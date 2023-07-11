@@ -1,12 +1,11 @@
 // const {validateFill} = require("")
-const { Form } = require("../models");
+const formServices = require("../services/form-services");
+
 exports.fill = async (req, res, next) => {
   try {
-    // const input = validateFill(req.body)
+    // const input = validateFill(req.body);
     const input = req.body;
-    const result = await Form.create(input);
-    console.log(input);
-    console.log(result);
+    const result = await formServices.fillService(input);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -18,9 +17,7 @@ exports.getDetail = async (req, res, next) => {
   try {
     // const param = req.param;
     const { id } = req.params;
-    const result = await Form.findOne({
-      where: { id }
-    });
+    const result = await formServices.getService(id);
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
@@ -30,7 +27,7 @@ exports.getDetail = async (req, res, next) => {
 
 exports.getAllDetails = async (req, res, next) => {
   try {
-    const result = await Form.findAll();
+    const result = await formServices.getAllService();
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
